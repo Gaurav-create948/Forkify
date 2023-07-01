@@ -6,13 +6,15 @@ import icons from "url:../../img/icons.svg";
 */
 export default class View {
     _data;
-
-    render(data) { // getting the recipe data here passed from controller
-        // console.log(Object.keys(data).length);
-        console.log(data);
-        if (!data || (Array.isArray(data) && data.length === 0)) return this.renderError();
+    render(data) { 
+        // getting the recipe data here passed from controller
+        if (!data || (Array.isArray(data) && data.length === 0)) {
+            console.log('fails');
+            return this.renderError();
+        }
         this._data = data; // setting data so that we can use it in the html
         const markup = this._generateMarkup(); // markup generator.
+        console.log(markup);
         this._clear(); // for clearing the data in the parent element before showing up anything else.
         this._parentElement.insertAdjacentHTML('afterbegin', markup); // showing the data in the parent element.
     }

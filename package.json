@@ -2,10 +2,10 @@
   "name": "forkify",
   "version": "1.0.0",
   "description": "\"this is an recipe app\"",
-  "main": "index.js",
+  "default": "index.html",
   "scripts": {
     "start": "parcel index.html",
-    "build" : "parcel build index.html --dist-dir ./dist"
+    "build": "parcel build index.html --dist-dir ./dist"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +15,6 @@
   },
   "dependencies": {
     "fractional": "^1.0.0"
-  }
+  },
+  "type": "module"
 }

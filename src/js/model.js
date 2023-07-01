@@ -12,6 +12,7 @@ export let state = {
 };
 
 export const loadRecipe = async function(id){
+    
     try {
         const data = await getJSON(`${API_URL}/${id}`); // getting data from helper.
         let { recipe } = data.data;

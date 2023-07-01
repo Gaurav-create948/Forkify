@@ -17,7 +17,6 @@ class paginationView extends View{
         const currPage = this._data.page
         const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
         // console.log(this._data.results.length, this._data.resultsPerPage);
-        console.log(this._data.results.length , this._data.resultsPerPage, numPages);
 
         // first page and showing only next button.
         if(currPage === 1 && numPages > 1){
