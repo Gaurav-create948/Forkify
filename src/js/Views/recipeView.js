@@ -1,7 +1,7 @@
 import View from "./view";
 // getting the icon from dist folder that's why used 'url:'
 import icons from "../../img/icons.svg";
-import  { Fraction }  from "fractional";
+// import  { Fraction }  from "fractional";
 /*
     # means private data.
 */
