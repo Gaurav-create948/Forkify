@@ -888,7 +888,7 @@ var _fractional = require("fractional");
                                     <svg class="recipe__icon">
                                         <use href="s${0, _iconsSvgDefault.default}#icon-check"></use>
                                     </svg>
-                                    <div class="recipe__quantity">${ing.quantity ? new (0, _fractional.Fraction)(ing.quantity).toString() : ""}</div>
+                                    <div class="recipe__quantity"></div>
                                     <div class="recipe__description">
                                         <span class="recipe__unit">${ing.unit}</span>
                                             ${ing.description}
