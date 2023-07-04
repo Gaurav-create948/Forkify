@@ -11,13 +11,13 @@
     }
 
     &:hover {
-      background-color: $color-grey-light-1;
+      background-color: gray;
       transform: translateY(-2px);
     }
 
-    &--active {
-      background-color: #fff;
-    }
+  }
+  &--active {
+    background-color: black;
   }
 
   &__fig {

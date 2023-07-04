@@ -8,24 +8,30 @@ export let state = {
         results : [],
         page : 1,
         resultsPerPage: RESULT_PER_PAGE
-    }
+    },
+    bookmarks : []
 };
 
 export const loadRecipe = async function(id){
-    
     try {
         const data = await getJSON(`${API_URL}/${id}`); // getting data from helper.
         let { recipe } = data.data;
         state.recipe = {
-          id: recipe.recipe_id,
-          image: recipe.image_url,
-          title: recipe.title,
-          time : recipe.cooking_time,
-          publisher: recipe.publisher,
-          sourceUrl: recipe.source_url,
-          servings: recipe.servings,
-          ingredients: recipe.ingredients
+            id: recipe.id,
+            image: recipe.image_url,
+            title: recipe.title,
+            time : recipe.cooking_time,
+            publisher: recipe.publisher,
+            sourceUrl: recipe.source_url,
+            servings: recipe.servings,
+            ingredients: recipe.ingredients
         }
+
+        // checking if any bookmarked already present in the bookmarked array
+        if(state.bookmarks.some(bookmark => bookmark.id === id))
+            state.recipe.bookmarked = true;
+        else
+            state.recipe.bookmarked = false;
     } catch (error) {
         throw error;
     }
@@ -69,3 +75,36 @@ export const updateServings = function (newServings) {
 
     state.recipe.servings = newServings;
 }
+
+const peristBookmarks = function(){
+    localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+} 
+
+export const addBookmarks = function(recipe) {
+    // add bookmarks
+    state.bookmarks.push(recipe);
+
+    // mark current recipe as bookmark
+    if(recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+    peristBookmarks();
+}
+
+
+export const deleteBookmarks = function(id) {
+    // delete bookmark
+    const index = state.bookmarks.findIndex(el => el.id === id);
+    state.bookmarks.splice(index, 1);
+    // mark current recipe as unbookmark
+    if(id === state.recipe.id) state.recipe.bookmarked = false;
+    peristBookmarks();
+}
+
+
+const init = function(){
+    const storage = localStorage.getItem('bookmarks');
+    if(storage) state.bookmarks = JSON.parse(storage);
+}
+
+init();
+
+

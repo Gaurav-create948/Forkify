@@ -3,9 +3,6 @@ import icons from "url:../../img/icons.svg";
 
 class SearchView extends View{
     _parentElement = document.querySelector('.search');
-
-
-    
 }
 
 export default new SearchView();

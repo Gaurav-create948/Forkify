@@ -6,17 +6,40 @@ import icons from "url:../../img/icons.svg";
 */
 export default class View {
     _data;
-    render(data) { 
+    render(data) {
         // getting the recipe data here passed from controller
         if (!data || (Array.isArray(data) && data.length === 0)) {
-            console.log('fails');
             return this.renderError();
         }
         this._data = data; // setting data so that we can use it in the html
-        const markup = this._generateMarkup(); // markup generator.
-        console.log(markup);
+        const markup = this._generateMarkup(); // markup generator
         this._clear(); // for clearing the data in the parent element before showing up anything else.
         this._parentElement.insertAdjacentHTML('afterbegin', markup); // showing the data in the parent element.
+    }
+
+    update(data){
+        if (!data || (Array.isArray(data) && data.length === 0)) {
+            return this.renderError();
+        }
+        this._data = data;
+        const newMarkup = this._generateMarkup();
+        const newDom = document.createRange().createContextualFragment(newMarkup);
+        const newElements = Array.from(newDom.querySelectorAll('*'));
+        const currElements = Array.from(this._parentElement.querySelectorAll('*'));
+
+        newElements.forEach((newEl, i) => {
+            const currEl = currElements[i];
+            if(newEl.isEqualNode(currEl)&& newEl.firstChild?.nodeValue.trim() !== ''){
+                currEl.textContext = newEl.textContent;
+            }
+
+            // updates changed attributes
+            if(!newEl.isEqualNode(currEl)){
+                Array.from(newEl.attributes).forEach(attr => 
+                    currEl.setAttribute(attr.name, attr.value)
+                );  
+            }
+        })
     }
 
     _clear() {
@@ -31,7 +54,7 @@ export default class View {
         const markup = `  
             <div class="spinner">
                 <svg>
-                    <use href="${icons}#icon-loader"></use>
+                <use href="${icons}#icon-loader"></use>
                 </svg>
             </div>
         `;

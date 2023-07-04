@@ -1,9 +1,14 @@
 import icons from "url:../../img/icons.svg";
 import View from "./view";
 
-class resultsView extends View {
-    _parentElement = document.querySelector('.results');
-    _errorMessage = 'No recipes found for your query! Please try again ;)';
+class bookmarksView extends View {
+    _parentElement = document.querySelector('.bookmarks__list');
+    _errorMessage = 'No bookmarks yet. Find a nice recipe and bookmark it :)';
+    // _message = ''
+
+    addHandlerRender(handler){
+        window.addEventListener('load', handler);
+    }
 
     _generateMarkup() {
         return this._data.map(this._generateMarkupPreview).join('');
@@ -33,4 +38,4 @@ class resultsView extends View {
     }
 }
 
-export default new resultsView();
+export default new bookmarksView();
